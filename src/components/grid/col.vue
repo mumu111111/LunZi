@@ -1,7 +1,7 @@
 <!-- 列 -->
 
 <template>
-  <div class="col" :class="" :style="">
+  <div class="col" :class="colClass" :style="colStyle">
     <slot></slot>
   </div>
 </template>
@@ -21,8 +21,8 @@ let validator = value => {
 export default {
   name: "Col",
   props: {
-    span: {},
-    offset: {},
+    span: [Number, String],
+    offset: [Number, String],
     ipad: {},
     narrowPc: {},
     pc: {},
@@ -33,10 +33,20 @@ export default {
       gutter: 0
     };
   },
-  methods: {},
+  methods: {
+    
+  },
   computed: {
-    colClass() {},
-    colStyle() {}
+    colClass() {
+      let { offset, span } = this;
+      return {`col-${span}`, offset-${offset}`}      
+      // return {} / [];
+    },
+    colStyle() {
+      let { offset, span } = this;
+
+      // return {} / [];
+    }
   }
 };
 </script>

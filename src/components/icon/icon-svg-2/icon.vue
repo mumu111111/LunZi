@@ -6,6 +6,8 @@
 </template>
 
 <script>
+import "./svg";
+
 export default {
   name: "icon",
   props: {

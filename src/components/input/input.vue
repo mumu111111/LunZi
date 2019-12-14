@@ -7,26 +7,26 @@
       @blur="$emit('blur', $event.target.value)"
     >
     <template >
-      <x-icon name="error" class="icon-error"></x-icon>
+      <gicon name="error" class="icon-error"></gicon>
       <span class="errorMessage">{{error}}</span>
     </template>
   </div>
 </template>
 
 <script>
-import xIcon from "./icon";
+import Gicon from "../icon/icon-svg-1/icon.vue";
 export default {
-  name: "xInput",
+  name: "Ginput",
   props: {
     value: {
       type: String
     },
     disabled: {
-      type: boolean,
+      type: Boolean,
       default: false
     },
     readonly: {
-      type: boolean,
+      type: Boolean,
       default: false
     },
     error: {
@@ -34,7 +34,7 @@ export default {
     }
   },
   components: {
-    xIcon
+    Gicon
   }
 };
 </script>
@@ -49,7 +49,7 @@ export default {
     border-radius: 4px;
     padding: 0 8px;
     &:hover {
-      border-color: #fff;
+      border-color: #666;
     }
     &:focus {
       box-shadow: inset 0 1px 3px #eee;

@@ -39,6 +39,50 @@ export default {
 };
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+.wrapper {
+  display: inline-flex;
+  align-items: center;
+  > input {
+    height: 32px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 0 8px;
+    &:hover {
+      border-color: #fff;
+    }
+    &:focus {
+      box-shadow: inset 0 1px 3px #eee;
+      outline: none;
+    }
+    //不能用状态的样式
+    &[disabled],
+    &[readonly] {
+      border-color: #bbb;
+      color: #bbb;
+      cursor: not-allowed;
+    }
+  }
+  &.error {
+    //当error状态时
+    > input {
+      border: red;
+    }
+    .icon-error {
+      fill: red;
+    }
+    .errorMessage {
+      color: red;
+    }
+  }
+}
 </style>
+
+
+
+
+
+
+
+
+

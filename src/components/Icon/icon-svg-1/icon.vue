@@ -1,6 +1,6 @@
 <template>
   <svg class="g-icon" @click="$emit('click', $events)">
-    <use :xlink:href="`#i-${name}`">
+    <use :xlink:href="`#i-${name}`"></use>
   </svg>
 </template>
 

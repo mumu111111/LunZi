@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: "Row",
+  name: "GRow",
   props: {
     // 传入的参数 可以控制元素间隔
     gutter: {
@@ -34,6 +34,11 @@ export default {
       let { align } = this;
       return [align && `align-${align}`];
     }
+  },
+  mounted() {
+    this.$children.forEach(vm => {
+      vm.gutter = this.gutter;
+    });
   }
 };
 </script>

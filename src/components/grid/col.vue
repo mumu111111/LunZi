@@ -1,33 +1,23 @@
 <template>
-  <div class="col" :class="colClass" :style="colStyle">
-    <slot></slot>
-  </div>
+    <div class="col" :class="colClasses" :style="colStyle">
+        <slot></slot>
+    </div>
 </template>
-
 <script>
 export default {
-  name: "xCol",
-  data() {
-    return {
-      gutter: 0
-    };
-  },
+  // name: 'xCol',
+  name: "GRow",
+
   props: {
     span: {
-      type: [Number, String],
-      validator(value) {
-        return ["span"].indexOf(value) >= 0;
-      }
+      type: [Number, String]
     },
     offset: {
-      type: [Number, String],
-      validator(value) {
-        return ["offset"].indexOf(value) >= 0;
-      }
+      type: [Number, String]
     },
     ipad: {
       type: Object,
-      vlidator(value) {
+      validator(value) {
         let keys = Object.keys(value);
         let valid = true;
         keys.map(key => {
@@ -40,7 +30,7 @@ export default {
     },
     npc: {
       type: Object,
-      vlidator(value) {
+      validator(value) {
         let keys = Object.keys(value);
         let valid = true;
         keys.map(key => {
@@ -53,7 +43,7 @@ export default {
     },
     pc: {
       type: Object,
-      vlidator(value) {
+      validator(value) {
         let keys = Object.keys(value);
         let valid = true;
         keys.map(key => {
@@ -66,7 +56,7 @@ export default {
     },
     wpc: {
       type: Object,
-      vlidator(value) {
+      validator(value) {
         let keys = Object.keys(value);
         let valid = true;
         keys.map(key => {
@@ -78,62 +68,69 @@ export default {
       }
     }
   },
+  data() {
+    return {
+      gutter: 0
+    };
+  },
   computed: {
-    rowStyle() {
+    colStyle() {
       return {
         paddingLeft: this.gutter / 2 + "px",
         paddingRight: this.gutter / 2 + "px"
       };
     },
-    rowClass() {
-      let { span, offset, pc, ipad, npc, wpc } = this;
-      if (span) {
-        return [`col-${span}`];
-      }
-      if (offset) {
-        return [`offset-${offset}`];
-      }
+    colClasses() {
+      let { span, offset, ipad, npc, pc, wpc } = this;
+      let ipadClasses = [];
+      let npcClasses = [];
+      let pcClasses = [];
+      let wpcClasses = [];
       if (ipad) {
-        return [`col-ipad-${ipad.span}`, `offset-ipad-${ipad.offset}`];
+        ipadClasses = [`col-ipad-${ipad.span}`, `offset-ipad-${ipad.offset}`];
       }
       if (npc) {
-        return [`col-npc-${npc.span}`, `offset-npc-${npc.offset}`];
+        npcClasses = [`col-npc-${npc.span}`, `offset-npc-${npc.offset}`];
       }
       if (pc) {
-        return [`col-pc-${pc.span}`, `offset-pc-${pc.offset}`];
+        pcClasses = [`col-pc-${pc.span}`, `offset-pc-${pc.offset}`];
       }
       if (wpc) {
-        return [`col-wpc-${wpc.span}`, `offset-wpc-${wpc.offset}`];
+        wpcClasses = [`col-wpc-${wpc.span}`, `offset-wpc-${wpc.offset}`];
       }
-      return [];
+      return [
+        span && `col-${span}`,
+        offset && `offset-${offset}`,
+        ...ipadClasses,
+        ...npcClasses,
+        ...pcClasses,
+        ...wpcClasses
+      ];
     }
   }
 };
 </script>
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .col {
   $class-prefix: col-;
   @for $n from 1 through 24 {
     &.#{$class-prefix}#{$n} {
-      width: ($n/24)*100%;
+      width: ($n / 24)*100%;
     }
   }
-
   $class-prefix: offset-;
   @for $n from 1 through 24 {
     &.#{$class-prefix}#{$n} {
-      margin-left: ($n/24)*100%;
+      margin-left: ($n / 24)*100%;
     }
   }
-
-  @media (min-width: 557px) {
+  @media (min-width: 577px) {
     $class-prefix: col-ipad-;
     @for $n from 1 through 24 {
       &.#{$class-prefix}#{$n} {
         width: ($n / 24)*100%;
       }
     }
-
     $class-prefix: offset-ipad-;
     @for $n from 1 through 24 {
       &.#{$class-prefix}#{$n} {
@@ -141,7 +138,6 @@ export default {
       }
     }
   }
-
   @media (min-width: 769px) {
     $class-prefix: col-npc-;
     @for $n from 1 through 24 {
@@ -149,46 +145,40 @@ export default {
         width: ($n / 24)*100%;
       }
     }
-
     $class-prefix: offset-npc-;
     @for $n from 1 through 24 {
       &.#{$class-prefix}#{$n} {
         margin-left: ($n / 24)*100%;
       }
-    
+    }
   }
   @media (min-width: 993px) {
-  $class-prefix: col-pc-;
+    $class-prefix: col-pc-;
     @for $n from 1 through 24 {
       &.#{$class-prefix}#{$n} {
         width: ($n / 24)*100%;
       }
     }
-
     $class-prefix: offset-pc-;
     @for $n from 1 through 24 {
       &.#{$class-prefix}#{$n} {
         margin-left: ($n / 24)*100%;
       }
-    
+    }
   }
   @media (min-width: 1201px) {
-  $class-prefix: col-wpc-;
+    $class-prefix: col-wpc-;
     @for $n from 1 through 24 {
       &.#{$class-prefix}#{$n} {
         width: ($n / 24)*100%;
       }
     }
-
     $class-prefix: offset-wpc-;
     @for $n from 1 through 24 {
       &.#{$class-prefix}#{$n} {
         margin-left: ($n / 24)*100%;
       }
-    
+    }
   }
 }
-}
-</style>
-
-
+</style> 
